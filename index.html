@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link rel="stylesheet" href="styles.css" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Top Header</title>
+  </head>
+  <body>
+    <div class="top">
+      <img src="img/rizzpedia.png" width="370px" height="100px" />
+    </div>
+
+    <div style="margin-top: 70px"></div>
+
+    <div class="main-area">
+      <h1 class="subtext">Connecting Our Modern World Through Language</h1>
+      <button>Launch The App</button>
+      <p></p>
+      <a href="about us.html"><button class="button2">About Us</button></a>
+
+      <div class="quote-slideshow">
+        <div class="quote-container active">
+          "The greatest application ever invented" – Gurshan Singh, Student
+        </div>
+        <div class="quote-container">
+          "This app has helped me connect to my students! W Rizz!" – Andreas
+          Kaiser, Teacher
+        </div>
+        <div class="quote-container">
+          "Quite possibly the worst thing to exist" – Brian Ko, Student
+        </div>
+
+        <button class="prev" onclick="changeQuote(-1)">&#10094;</button>
+        <button class="next" onclick="changeQuote(1)">&#10095;</button>
+      </div>
+    </div>
+
+    <script>
+      let currentQuote = 0;
+      const quotes = document.querySelectorAll(".quote-container");
+
+      function showQuote(index, direction = 1) {
+        quotes.forEach((quote) => {
+          quote.classList.remove("active", "slide-left", "slide-right");
+        });
+
+        const outgoingQuote = quotes[currentQuote];
+        const incomingQuote = quotes[(index + quotes.length) % quotes.length];
+
+        // Fix: Correct the direction handling
+        outgoingQuote.classList.add(
+          direction === 1 ? "slide-right" : "slide-left"
+        );
+
+        setTimeout(() => {
+          outgoingQuote.classList.remove("active", "slide-left", "slide-right");
+
+          currentQuote = (index + quotes.length) % quotes.length;
+          incomingQuote.classList.add("active");
+        }, 200);
+      }
+
+      function changeQuote(direction) {
+        // Determine the new index based on the direction (left or right)
+        const newIndex = currentQuote + direction;
+
+        // Pass the direction to the showQuote function to slide in the correct direction
+        showQuote(newIndex, direction);
+      }
+
+      showQuote(currentQuote);
+    </script>
+  </body>
+</html>
